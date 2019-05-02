@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="5"
+    android:background="#D1D1D1">
+    <com.example.dell.myui.CircleImageView
+        android:id="@+id/iv_get_picture"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:src="@drawable/picture"
+        android:scaleType="fitCenter"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+    </View>
+
+    <com.example.dell.myui.CircleImageView
+        android:id="@+id/iv_history"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:src="@drawable/history"
+        android:scaleType="fitCenter"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+    </View>
+
+    <com.example.dell.myui.CircleImageView
+        android:id="@+id/iv_user"
+        android:layout_margin="10dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:src="@drawable/user"
+        android:scaleType="fitCenter"
+        />
+</LinearLayout>

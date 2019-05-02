@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyUI</string>
+    <string name="id">用户名</string>
+    <string name="pwd">密码</string>
+    <string name="loginbtn">登录</string>
+    <string name="forgot">忘记密码？</string>
+    <string name="registerbtn">注册</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:elevation="1dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="图片"
+        android:textColor="#525252"
+        android:textSize="18sp"
+        android:id="@+id/textView4" />
+
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:foreground="@drawable/header_shadow"
+        android:id="@+id/frameLayout"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+        <!-- YOUR STUFF HERE -->
+    </FrameLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <FrameLayout
+            android:id="@+id/layout_camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <SurfaceView
+                android:id="@+id/surfaceView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/view_text_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:alpha="0.5"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:text="请将文字区域对准方框"
+                    android:textSize="18dp"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/view_main_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/layout_button_iv"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view_left"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:alpha="0.5"
+                        android:background="#000000"
+                        android:visibility="visible" />
+
+                    <!--中心布局,取景处-->
+                    <View
+                        android:id="@+id/bg_center_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/view_right"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:alpha="0.5"
+                        android:background="#000000"
+                        android:gravity="center"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_button_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.5"
+                    android:background="#000000">
+
+                    <com.example.dell.myui.CircleImageView
+                        android:id="@+id/iv_cancel"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/cancel"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp" />
+
+                    <com.example.dell.myui.CircleImageView
+                        android:id="@+id/iv_take_photo"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/takephoto"
+                        android:layout_centerInParent="true" />
+
+                    <com.example.dell.myui.CircleImageView
+                        android:id="@+id/iv_finish"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/finish"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30dp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>
