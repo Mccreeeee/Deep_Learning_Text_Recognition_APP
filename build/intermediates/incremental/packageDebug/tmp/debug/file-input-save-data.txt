@@ -1,7 +1,0 @@
-#Internal package file, do not edit.
-#Fri Apr 19 00:42:19 CST 2019
-0.baseType=DIRECTORY
-0.base=D\:\\MyUI 3.1\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
-0.path=classes.dex
-0.set=DEX
-count=1
