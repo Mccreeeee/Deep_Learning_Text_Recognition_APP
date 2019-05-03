@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.hlq:slideDeleteListView-1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/slideDeleteListView-1.0.0.aar/daa1f39d700adcefc5b943aa9e17db0b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/slideDeleteListView-1.0.0.aar/daa1f39d700adcefc5b943aa9e17db0b/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hlq/slideDeleteListView/1.0.0/27951aa7319237d2d47e8e19d66a4ec318055b2a/slideDeleteListView-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
