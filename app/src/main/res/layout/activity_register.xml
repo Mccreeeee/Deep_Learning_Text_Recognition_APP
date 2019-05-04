@@ -65,7 +65,7 @@
                 android:layout_height="0.5dp"
                 android:background="#CACDD1" />
             <EditText
-                android:id="@+id/login_edtRePwd"
+                android:id="@+id/login_edtPwd"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="@null"
@@ -81,7 +81,7 @@
                 android:layout_height="0.5dp"
                 android:background="#CACDD1" />
             <EditText
-                android:id="@+id/login_edtPwd"
+                android:id="@+id/login_edtRePwd"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="@null"

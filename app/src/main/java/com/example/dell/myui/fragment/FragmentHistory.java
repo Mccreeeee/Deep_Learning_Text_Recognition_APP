@@ -10,12 +10,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dell.myui.HistoryActivity;
 import com.example.dell.myui.R;
 import com.example.dell.myui.historyItem;
 import com.example.dell.myui.histroyAdapter;
@@ -23,7 +21,6 @@ import com.example.dell.myui.histroyAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import hlq.com.slidedeletelistview.BtnDeleteListern;
 import hlq.com.slidedeletelistview.SlideDeleteListView;
 
 public class FragmentHistory extends Fragment implements histroyAdapter.OnShowItemClickListener{
