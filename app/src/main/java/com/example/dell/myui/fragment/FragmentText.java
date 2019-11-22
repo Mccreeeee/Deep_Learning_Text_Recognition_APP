@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.example.dell.myui.R;
+import com.example.dell.myui.activity.TranslateActivity;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -37,7 +39,7 @@ public class FragmentText extends Fragment {
                  {
                      case 0:
                          Toast.makeText(getActivity(),"翻译",Toast.LENGTH_SHORT).show();
-                         Intent intent=new Intent(getActivity(),TranslateActivity.class);
+                         Intent intent=new Intent(getActivity(), TranslateActivity.class);
                          startActivity(intent);
                          break;
                      case 1:

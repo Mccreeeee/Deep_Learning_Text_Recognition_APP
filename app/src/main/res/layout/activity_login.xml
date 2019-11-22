@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.example.dell.myui.CircleImageView
+    <com.example.dell.myui.activity.CircleImageViewActivity
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"

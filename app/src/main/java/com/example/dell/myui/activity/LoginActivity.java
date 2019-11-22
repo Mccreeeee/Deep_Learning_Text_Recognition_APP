@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.dell.myui.R;
 
 public class LoginActivity extends AppCompatActivity {
         private EditText etUserName;

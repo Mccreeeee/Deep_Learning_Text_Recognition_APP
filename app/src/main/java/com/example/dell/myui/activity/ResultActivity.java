@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,9 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.dell.myui.R;
+import com.example.dell.myui.fragment.FragmentPicture;
+import com.example.dell.myui.fragment.FragmentText;
+
 import java.util.ArrayList;
 
-public class result extends AppCompatActivity implements View.OnClickListener{
+public class ResultActivity extends AppCompatActivity implements View.OnClickListener{
 private TextView title,item_text,item_picture;
     private ArrayList<Fragment> fragment_list;
     private ViewPager vp;

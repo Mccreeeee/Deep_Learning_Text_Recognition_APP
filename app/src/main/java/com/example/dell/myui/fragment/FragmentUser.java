@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.example.dell.myui.LoginActivity;
+import com.example.dell.myui.activity.LoginActivity;
 import com.example.dell.myui.R;
-import com.example.dell.myui.RegisterActivity;
 
 public class FragmentUser extends Fragment {
     private RelativeLayout relativeLayout_login;

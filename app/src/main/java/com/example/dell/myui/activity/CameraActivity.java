@@ -1,6 +1,5 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
-import android.graphics.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -8,12 +7,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import com.example.dell.myui.R;
+
 public class CameraActivity extends AppCompatActivity {
      private SurfaceHolder holder;
      private SurfaceView surfaceView;
-     private CircleImageView iv_cancel;
-     private CircleImageView iv_takephoto;
-     private CircleImageView iv_finish;
+     private CircleImageViewActivity iv_cancel;
+     private CircleImageViewActivity iv_takephoto;
+     private CircleImageViewActivity iv_finish;
      private boolean status;
      private android.hardware.Camera camera;
     @Override

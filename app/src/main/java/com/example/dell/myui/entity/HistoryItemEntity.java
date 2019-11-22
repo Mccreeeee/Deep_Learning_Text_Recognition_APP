@@ -1,14 +1,14 @@
-package com.example.dell.myui;
+package com.example.dell.myui.entity;
 
 import android.graphics.Bitmap;
 
-public class historyItem {
+public class HistoryItemEntity {
     private Bitmap picture;
     private String date;
     private String time;
     private boolean isChecked;   //判断是否选中复选框
     private boolean isShow;     //判断是否显示复选框
-public historyItem(Bitmap picture,String date,String time,boolean isChecked,boolean isShow)
+public HistoryItemEntity(Bitmap picture, String date, String time, boolean isChecked, boolean isShow)
 {
     this.picture=picture;
     this.date=date;

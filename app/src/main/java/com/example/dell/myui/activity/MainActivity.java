@@ -1,20 +1,14 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
+import com.example.dell.myui.R;
 import com.example.dell.myui.fragment.FragmentHistory;
 import com.example.dell.myui.fragment.FragmentMain;
 import com.example.dell.myui.fragment.FragmentPhoto;
@@ -44,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
-        BottomBar bottomBar = findViewById(R.id.bottom_bar);
+        BottomBarActivity bottomBarActivity = findViewById(R.id.bottom_bar);
         fl_container = findViewById(R.id.fl_container);
-        bottomBar.setContainer(R.id.fl_container)
+        bottomBarActivity.setContainer(R.id.fl_container)
                 .setTitleBeforeAndAfterColor("#999999", "#ff5d5e")
                 .addItem(FragmentMain.class,
                         "首页",

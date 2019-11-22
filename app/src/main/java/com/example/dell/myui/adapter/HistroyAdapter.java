@@ -1,7 +1,6 @@
-package com.example.dell.myui;
+package com.example.dell.myui.adapter;
 
 import android.content.Context;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,16 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dell.myui.R;
+import com.example.dell.myui.entity.HistoryItemEntity;
+
 import java.util.List;
 
-public class histroyAdapter extends BaseAdapter {
+public class HistroyAdapter extends BaseAdapter {
 private LayoutInflater inflater;
-private List<historyItem> list;
+private List<HistoryItemEntity> list;
 private OnShowItemClickListener onShowItemClickListener;
-public histroyAdapter(List<historyItem> list, Context context)
+public HistroyAdapter(List<HistoryItemEntity> list, Context context)
 {
     this.list=list;
     inflater=LayoutInflater.from(context);
@@ -55,7 +57,7 @@ else
 {
     holder=(ViewHolder) convertView.getTag();
 }
-final historyItem item=list.get(position);
+final HistoryItemEntity item=list.get(position);
 //是否是多选状态
     if(item.isShow())
     {
@@ -96,7 +98,7 @@ static class ViewHolder
     }
     public interface OnShowItemClickListener
     {
-        public void onShowItemClick(historyItem hisItem);
+        public void onShowItemClick(HistoryItemEntity hisItem);
         void onBackPressed();
     }
     public void setOnShowItemClickListener(OnShowItemClickListener onShowItemClickListener) {

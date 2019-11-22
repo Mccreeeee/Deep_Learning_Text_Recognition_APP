@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dell.myui.R;
 import com.example.dell.myui.utils.HttpUtils;
 
 public class RegisterActivity extends AppCompatActivity {

@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:weightSum="5"
     android:background="#D1D1D1">
-    <com.example.dell.myui.CircleImageView
+    <com.example.dell.myui.activity.CircleImageViewActivity
         android:id="@+id/iv_get_picture"
         android:layout_margin="10dp"
         android:layout_width="0dp"
@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
     </View>
 
-    <com.example.dell.myui.CircleImageView
+    <com.example.dell.myui.activity.CircleImageViewActivity
         android:id="@+id/iv_history"
         android:layout_margin="10dp"
         android:layout_width="0dp"
@@ -36,7 +36,7 @@
         android:layout_height="match_parent">
     </View>
 
-    <com.example.dell.myui.CircleImageView
+    <com.example.dell.myui.activity.CircleImageViewActivity
         android:id="@+id/iv_user"
         android:layout_margin="10dp"
         android:layout_width="0dp"

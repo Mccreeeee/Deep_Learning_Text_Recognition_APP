@@ -15,20 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
-import com.example.dell.myui.historyItem;
-import com.example.dell.myui.histroyAdapter;
+import com.example.dell.myui.entity.HistoryItemEntity;
+import com.example.dell.myui.adapter.HistroyAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hlq.com.slidedeletelistview.SlideDeleteListView;
 
-public class FragmentHistory extends Fragment implements histroyAdapter.OnShowItemClickListener{
+public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowItemClickListener{
 
     private SlideDeleteListView listView;
-    private List<historyItem> dataList;
-    private List<historyItem> selectList;
-    private histroyAdapter hisAdapter;
+    private List<HistoryItemEntity> dataList;
+    private List<HistoryItemEntity> selectList;
+    private HistroyAdapter hisAdapter;
     private RelativeLayout rootView;
     private LinearLayout opreateView;
     private static boolean isShow; // 是否显示CheckBox标识
@@ -47,7 +47,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
         listView = view.findViewById(R.id.history_listview);
         lay= view.findViewById(R.id.lay);
         setlist();
-        hisAdapter = new histroyAdapter(dataList,getActivity());
+        hisAdapter = new HistroyAdapter(dataList,getActivity());
         listView.setAdapter(hisAdapter);
         hisAdapter.setOnShowItemClickListener(this);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -58,7 +58,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
                 else
                 {
                     isShow=true;
-                    for(historyItem item:dataList)
+                    for(HistoryItemEntity item:dataList)
                     {
                         item.setShow(true);
                     }
@@ -74,7 +74,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(isShow)
                 {
-                    historyItem item=dataList.get(position);
+                    HistoryItemEntity item=dataList.get(position);
                     boolean isCheck=item.isChecked();
                     if(isCheck){
                         item.setChecked(false);
@@ -99,7 +99,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
 
 
     @Override
-    public void onShowItemClick(historyItem hisItem) {
+    public void onShowItemClick(HistoryItemEntity hisItem) {
         if(hisItem.isChecked()&&!selectList.contains(hisItem))
         {
             selectList.add(hisItem);
@@ -131,7 +131,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
                 if(isShow)
                 {
                     selectList.clear();
-                    for(historyItem item:dataList)
+                    for(HistoryItemEntity item:dataList)
                     {
                         item.setShow(false);
                         item.setChecked(false);
@@ -146,7 +146,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
         tvSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(historyItem item:dataList)
+                for(HistoryItemEntity item:dataList)
                 {
                     if(!item.isChecked())
                     {
@@ -163,7 +163,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
         tvInvertSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(historyItem item:dataList)
+                for(HistoryItemEntity item:dataList)
                 {
                     if(!item.isChecked())
                     {
@@ -210,7 +210,7 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
         if(isShow)
         {
             selectList.clear();
-            for(historyItem item:dataList)
+            for(HistoryItemEntity item:dataList)
             {
                 item.setChecked(false);
                 item.setShow(false);
@@ -224,11 +224,11 @@ public class FragmentHistory extends Fragment implements histroyAdapter.OnShowIt
     }
     public void setlist()     //初始化列表
     {
-        dataList=new ArrayList<historyItem>();
-        selectList=new ArrayList<historyItem>();
+        dataList=new ArrayList<HistoryItemEntity>();
+        selectList=new ArrayList<HistoryItemEntity>();
         for(int i=0;i<1;i++)
         {
-            dataList.add(new historyItem(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
+            dataList.add(new HistoryItemEntity(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
         }
     }
 }

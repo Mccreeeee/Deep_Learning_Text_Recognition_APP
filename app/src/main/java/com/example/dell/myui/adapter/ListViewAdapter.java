@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.dell.myui.R;
 
 import java.util.List;
 

@@ -1,15 +1,11 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
-import android.content.ClipData;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,14 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dell.myui.R;
+import com.example.dell.myui.adapter.HistroyAdapter;
+import com.example.dell.myui.entity.HistoryItemEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity implements histroyAdapter.OnShowItemClickListener {
+public class HistoryActivity extends AppCompatActivity implements HistroyAdapter.OnShowItemClickListener {
     private ListView listView;
-    private List<historyItem> dataList;
-    private List<historyItem> selectList;
-    private histroyAdapter hisAdapter;
+    private List<HistoryItemEntity> dataList;
+    private List<HistoryItemEntity> selectList;
+    private HistroyAdapter hisAdapter;
     private RelativeLayout rootView;
     private LinearLayout opreateView;
     private static boolean isShow; // 是否显示CheckBox标识
@@ -42,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity implements histroyAdapter
         listView = (ListView) findViewById(R.id.history_listview);
         lay= (LinearLayout) findViewById(R.id.lay);
         setlist();
-        hisAdapter = new histroyAdapter(dataList,this);
+        hisAdapter = new HistroyAdapter(dataList,this);
         listView.setAdapter(hisAdapter);
         hisAdapter.setOnShowItemClickListener(this);
 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -53,7 +53,7 @@ listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
         else
         {
             isShow=true;
-            for(historyItem item:dataList)
+            for(HistoryItemEntity item:dataList)
             {
                 item.setShow(true);
             }
@@ -69,7 +69,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(isShow)
         {
-           historyItem item=dataList.get(position);
+           HistoryItemEntity item=dataList.get(position);
            boolean isCheck=item.isChecked();
            if(isCheck){
                item.setChecked(false);
@@ -87,7 +87,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     }
 
     @Override
-    public void onShowItemClick(historyItem hisItem) {
+    public void onShowItemClick(HistoryItemEntity hisItem) {
         if(hisItem.isChecked()&&!selectList.contains(hisItem))
         {
 selectList.add(hisItem);
@@ -119,7 +119,7 @@ selectList.add(hisItem);
             if(isShow)
             {
                 selectList.clear();
-                for(historyItem item:dataList)
+                for(HistoryItemEntity item:dataList)
                 {
                     item.setShow(false);
                     item.setChecked(false);
@@ -134,7 +134,7 @@ selectList.add(hisItem);
     tvSelect.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for(historyItem item:dataList)
+            for(HistoryItemEntity item:dataList)
             {
                 if(!item.isChecked())
                 {
@@ -151,7 +151,7 @@ selectList.add(hisItem);
     tvInvertSelect.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            for(historyItem item:dataList)
+            for(HistoryItemEntity item:dataList)
             {
                 if(!item.isChecked())
                 {
@@ -198,7 +198,7 @@ selectList.add(hisItem);
         if(isShow)
         {
             selectList.clear();
-            for(historyItem item:dataList)
+            for(HistoryItemEntity item:dataList)
             {
                 item.setChecked(false);
                 item.setShow(false);
@@ -212,12 +212,12 @@ selectList.add(hisItem);
     }
     public void setlist()     //初始化列表
     {
-        dataList=new ArrayList<historyItem>();
-        selectList=new ArrayList<historyItem>();
+        dataList=new ArrayList<HistoryItemEntity>();
+        selectList=new ArrayList<HistoryItemEntity>();
         for(int i=0;i<10;i++)
         {
 
-            dataList.add(new historyItem(BitmapFactory.decodeResource(getResources(), R.drawable.nopicture),"2016-01-01", "00:00:00",false, false));
+            dataList.add(new HistoryItemEntity(BitmapFactory.decodeResource(getResources(), R.drawable.nopicture),"2016-01-01", "00:00:00",false, false));
         }
     }
 }

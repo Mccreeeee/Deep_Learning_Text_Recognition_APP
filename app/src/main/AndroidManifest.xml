@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".TranslateActivity" />
-        <activity android:name=".result" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".activity.CameraActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.TranslateActivity" />
+        <activity android:name=".activity.ResultActivity" />
+        <activity android:name=".activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

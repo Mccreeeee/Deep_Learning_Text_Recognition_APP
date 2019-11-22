@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

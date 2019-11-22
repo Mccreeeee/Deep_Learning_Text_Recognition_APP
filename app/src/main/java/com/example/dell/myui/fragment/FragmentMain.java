@@ -24,10 +24,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
-import com.example.dell.myui.RollViewAdapter;
-import com.example.dell.myui.historyItem;
-import com.example.dell.myui.histroyAdapter;
-import com.example.dell.myui.result;
+import com.example.dell.myui.adapter.RollViewAdapter;
+import com.example.dell.myui.entity.HistoryItemEntity;
+import com.example.dell.myui.adapter.HistroyAdapter;
+import com.example.dell.myui.activity.ResultActivity;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.IconHintView;
@@ -40,8 +40,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentMain extends Fragment {
     private ListView lv_history;
-    private List<historyItem> historyList;
-    private com.example.dell.myui.histroyAdapter histroyAdapter;
+    private List<HistoryItemEntity> historyList;
+    private HistroyAdapter histroyAdapter;
     private RollPagerView rollPagerView;   //轮播
     private static final int CROP_PHOTO = 2;
     private static final int REQUEST_CODE_PICK_IMAGE=3;
@@ -175,7 +175,7 @@ public class FragmentMain extends Fragment {
                 {
                     try {
                         bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri));
-                        Intent intent=new Intent(getActivity(), result.class);
+                        Intent intent=new Intent(getActivity(), ResultActivity.class);
                         intent.setData(imageUri);
                         startActivity(intent);
                     }catch(Exception e){
@@ -189,7 +189,7 @@ public class FragmentMain extends Fragment {
                 {  try{
                     Uri uri = data.getData();
                     bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
-                    Intent intent=new Intent(getContext(),result.class);
+                    Intent intent=new Intent(getContext(), ResultActivity.class);
                     intent.setData(uri);
                     startActivity(intent);
                 }
@@ -241,13 +241,13 @@ public class FragmentMain extends Fragment {
     }
     public void setHistoryList()
     {
-        historyList=new ArrayList<historyItem>();
+        historyList=new ArrayList<HistoryItemEntity>();
         for(int i=0;i<5;i++)
         {
 
-            historyList.add(new historyItem(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
+            historyList.add(new HistoryItemEntity(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
         }
-        histroyAdapter=new histroyAdapter(historyList,getActivity());
+        histroyAdapter=new HistroyAdapter(historyList,getActivity());
     }
 
     private void setRollPagerView() {

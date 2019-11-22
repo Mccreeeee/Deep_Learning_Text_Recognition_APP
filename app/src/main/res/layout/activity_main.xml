@@ -15,7 +15,7 @@
         android:layout_weight="1">
     </FrameLayout>
 
-    <com.example.dell.myui.BottomBar
+    <com.example.dell.myui.activity.BottomBarActivity
         android:background="#FFFFFF"
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"

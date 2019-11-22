@@ -79,7 +79,7 @@
                     android:alpha="0.5"
                     android:background="#000000">
 
-                    <com.example.dell.myui.CircleImageView
+                    <com.example.dell.myui.activity.CircleImageViewActivity
                         android:id="@+id/iv_cancel"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -88,14 +88,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="30dp" />
 
-                    <com.example.dell.myui.CircleImageView
+                    <com.example.dell.myui.activity.CircleImageViewActivity
                         android:id="@+id/iv_take_photo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/takephoto"
                         android:layout_centerInParent="true" />
 
-                    <com.example.dell.myui.CircleImageView
+                    <com.example.dell.myui.activity.CircleImageViewActivity
                         android:id="@+id/iv_finish"
                         android:layout_width="60dp"
                         android:layout_height="60dp"

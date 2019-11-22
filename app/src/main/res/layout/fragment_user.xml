@@ -5,7 +5,7 @@
     android:background="#F2F2F2"
     android:orientation="vertical">
     <include layout="@layout/toolbar_user"/>
-        <com.example.dell.myui.CircleImageView
+        <com.example.dell.myui.activity.CircleImageViewActivity
             android:layout_margin="10dp"
             android:layout_width="140dp"
             android:layout_height="140dp"

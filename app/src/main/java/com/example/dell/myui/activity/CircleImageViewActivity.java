@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-public class CircleImageView extends android.support.v7.widget.AppCompatImageView  {
+public class CircleImageViewActivity extends android.support.v7.widget.AppCompatImageView  {
     private Paint mPaint; //画笔
 
     private int mRadius; //圆形图片的半径
@@ -25,15 +25,15 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     private float mScale; //图片的缩放比例
 
 
-    public CircleImageView(Context context) {
+    public CircleImageViewActivity(Context context) {
         super(context);
     }
 
-    public CircleImageView(Context context, AttributeSet attrs) {
+    public CircleImageViewActivity(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CircleImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleImageViewActivity(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

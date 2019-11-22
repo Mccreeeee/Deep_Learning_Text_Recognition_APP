@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.activity;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.example.dell.myui.R;
+
 import org.angmarch.views.NiceSpinner;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.dell.myui;
+package com.example.dell.myui.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

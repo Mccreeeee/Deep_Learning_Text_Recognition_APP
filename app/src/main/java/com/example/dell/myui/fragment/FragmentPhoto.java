@@ -23,7 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
-import com.example.dell.myui.result;
+import com.example.dell.myui.activity.ResultActivity;
 
 import java.io.File;
 
@@ -163,7 +163,7 @@ public class FragmentPhoto extends Fragment {
                     try {
                         Toast.makeText(getActivity(),"跳转",Toast.LENGTH_SHORT).show();
                         bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri));
-                        Intent intent=new Intent(getActivity(), result.class);
+                        Intent intent=new Intent(getActivity(), ResultActivity.class);
                         intent.setData(imageUri);
                         startActivity(intent);
                     }catch(Exception e){
@@ -178,7 +178,7 @@ public class FragmentPhoto extends Fragment {
                     Toast.makeText(getActivity(),"跳转",Toast.LENGTH_SHORT).show();
                     Uri uri = data.getData();
                     bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
-                    Intent intent=new Intent(getActivity(),result.class);
+                    Intent intent=new Intent(getActivity(), ResultActivity.class);
                     intent.setData(uri);
                     startActivity(intent);
                 }
