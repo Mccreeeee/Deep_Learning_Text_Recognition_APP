@@ -1,6 +1,7 @@
 package com.example.dell.myui.utils;
 
 import java.io.IOException;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -16,10 +17,12 @@ public class HttpUtils {
     public static String getBaseUrl() {
         return baseUrl;
     }
-    public static void postDataWithParame(String url, String key, String value) {
+    public static void postDataWithParam(String url, Map<String, String> keyValue) {
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-        formBody.add(key, value);//传递键值对参数
+        for(Map.Entry<String, String> entry : keyValue.entrySet()) {
+            formBody.add(entry.getKey(), entry.getValue());
+        }
         Request request = new Request.Builder()//创建Request 对象。
                 .url(url)
                 .post(formBody.build())//传递请求体

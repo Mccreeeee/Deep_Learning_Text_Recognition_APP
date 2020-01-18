@@ -4,12 +4,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.dell.myui.R;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 //实现无x
 public class RollViewAdapter extends LoopPagerAdapter {
 
-    private int[]pictures={R.drawable.picture_show,R.drawable.picture_show,R.drawable.picture_show};
+    private int[]pictures={R.drawable.picture_show, R.drawable.picture_show,R.drawable.picture_show};
     public RollViewAdapter(RollPagerView rollPagerView)
     {
        super(rollPagerView);
