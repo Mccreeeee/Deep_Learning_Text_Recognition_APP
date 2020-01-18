@@ -45,7 +45,8 @@ public class HttpUtils {
     public static void postJsonData(String url, String json) {
         OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象。
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
-        String jsonStr = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";//json数据.
+//        以下是sample
+//        String jsonStr = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";//json数据.
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()//创建Request 对象。
                 .url(url)
