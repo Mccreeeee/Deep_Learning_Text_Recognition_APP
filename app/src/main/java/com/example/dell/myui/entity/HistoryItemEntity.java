@@ -4,25 +4,25 @@ import android.graphics.Bitmap;
 
 public class HistoryItemEntity {
     private Bitmap picture;
-    private String date;
-    private String time;
+    private String name;
+    private String data;
     private boolean isChecked;   //判断是否选中复选框
     private boolean isShow;     //判断是否显示复选框
-public HistoryItemEntity(Bitmap picture, String date, String time, boolean isChecked, boolean isShow)
+public HistoryItemEntity(Bitmap picture, String name, String data, boolean isChecked, boolean isShow)
 {
     this.picture=picture;
-    this.date=date;
-    this.time=time;
+    this.name=name;
+    this.data = data;
     this.isChecked=isChecked;
     this.isShow=isShow;
 }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getName() {
+        return name;
     }
 
     public void setPicture(Bitmap picture) {
@@ -33,12 +33,12 @@ public HistoryItemEntity(Bitmap picture, String date, String time, boolean isChe
         return picture;
     }
 
-    public String getDate() {
-        return date;
+    public String getData() {
+        return data;
     }
 
-    public void setData(String date) {
-        this.date = date;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public boolean isShow() {

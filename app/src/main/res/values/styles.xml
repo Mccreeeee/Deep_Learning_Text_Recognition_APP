@@ -30,5 +30,7 @@
         <item name="android:windowEnterAnimation">@anim/opervate_in</item>
         <item name="android:windowExitAnimation">@anim/opervate_out</item>
     </style>
-
+    <declare-styleable name="ClipView">
+        <attr name="floatColor" format="color"/>
+    </declare-styleable>
 </resources>

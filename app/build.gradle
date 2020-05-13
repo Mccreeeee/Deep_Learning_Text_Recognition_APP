@@ -21,6 +21,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildToolsVersion '28.0.3'
+    sourceSets {
+        main {
+            jniLibs.srcDir(['libs'])
+        }
+    }
 }
 
 dependencies {
@@ -36,5 +41,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.hlq:slideDeleteListView:1.0.0'
-    implementation("com.squareup.okhttp3:okhttp:3.14.6")
+    implementation 'com.squareup.okhttp3:okhttp:3.14.6'
+    implementation files('libs/ocr-sdk.jar')
+    implementation 'com.alibaba:fastjson:1.1.54.android'
+    compile project(path: ':ocr_ui')
+    implementation files('libs/iTextpdf.jar')
 }

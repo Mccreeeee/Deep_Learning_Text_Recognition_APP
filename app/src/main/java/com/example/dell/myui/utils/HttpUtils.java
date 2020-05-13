@@ -1,5 +1,9 @@
 package com.example.dell.myui.utils;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -11,6 +15,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.content.ContentValues.TAG;
+import static java.security.AccessController.getContext;
 
 public class HttpUtils {
     private static String baseUrl = "http://10.0.2.2:8080";
@@ -31,12 +38,16 @@ public class HttpUtils {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.err.println("未能发送成功！！！");
+                Log.d("httpUtils","未能发送成功！！！因为" + e.toString());
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    System.err.println(response.body().string());
+                    String result = response.body().string();
+                    System.err.println(result);
+                    Log.d("httpUtils",result);
                 }
             }
         });
@@ -61,7 +72,8 @@ public class HttpUtils {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    System.err.println(response.body().string());
+                    String result = response.body().string();
+                    System.err.println(result);
                 }
             }
         });

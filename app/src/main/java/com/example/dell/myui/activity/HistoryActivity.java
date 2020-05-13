@@ -80,7 +80,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         else
         {
             //单击事件
-            Toast.makeText(HistoryActivity.this, dataList.get(position).getDate(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(HistoryActivity.this, dataList.get(position).getData(), Toast.LENGTH_SHORT).show();
         }
     }
 });

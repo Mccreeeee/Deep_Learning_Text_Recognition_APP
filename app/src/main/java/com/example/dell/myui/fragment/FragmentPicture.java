@@ -15,11 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
+import com.example.dell.myui.utils.FileUtils;
 
 public class FragmentPicture extends Fragment {
     private ImageView pic;
     Bitmap bitmap;
-    Uri uri;
+    String uri;
     public FragmentPicture(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class FragmentPicture extends Fragment {
         setBitmap();
         return view;
     }
-    public void getUri(Uri uri)
+    public void getUri(String uri)
     {
       this.uri=uri;
     }
@@ -38,8 +39,9 @@ public class FragmentPicture extends Fragment {
      try
      {
          // 读取uri资源中的bitmap
-         bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-         pic.setImageBitmap(bitmap);
+         bitmap = FileUtils.getImageFromUrl(uri);
+         if(bitmap != null)
+             pic.setImageBitmap(bitmap);
      }
      catch (Exception e)
      {

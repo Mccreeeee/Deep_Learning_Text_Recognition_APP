@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+    private EditText userName;
     private EditText loginName;
     private EditText loginPwd;
     private EditText loginRePwd;
@@ -30,7 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        loginName = findViewById(R.id.login_edtId);
+        userName = findViewById(R.id.login_edtUserName);
+        loginName = findViewById(R.id.login_edtLoginName);
         loginRePwd = findViewById(R.id.login_edtRePwd);
         loginPwd = findViewById(R.id.login_edtPwd);
         verifyNumber = findViewById(R.id.login_et_verifyNumber);
@@ -39,12 +41,25 @@ public class RegisterActivity extends AppCompatActivity {
         Map<String, String> param = new HashMap<>();
         param.put("loginName", loginName.getText().toString());
         btnVerifyNumber.setOnClickListener(v -> {
-            Toast.makeText(this, "点击了获取验证码按钮", Toast.LENGTH_SHORT).show();
-            HttpUtils.postDataWithParam(HttpUtils.getBaseUrl() + "/user/genVerifyNum",
-                    param);
+            if(!loginPwd.getText().toString().equals(loginRePwd.getText().toString())){
+                Toast.makeText(this,loginPwd.getText().toString() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, loginRePwd.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "密码输入错误！", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, "正在获取验证码！", Toast.LENGTH_SHORT).show();
+                HttpUtils.postDataWithParam(HttpUtils.getBaseUrl() + "/user/genVerifyNum",
+                        param);
+            }
         });
         btnLogin.setOnClickListener(v -> {
             Toast.makeText(this, "点击了登录按钮", Toast.LENGTH_SHORT).show();
+            Map<String,String> infoMap = new HashMap<>();
+            infoMap.put("code", verifyNumber.getText().toString());
+            infoMap.put("loginName",loginName.getText().toString());
+            infoMap.put("loginPwd",loginPwd.getText().toString());
+            infoMap.put("userName", userName.getText().toString());
+            HttpUtils.postDataWithParam(HttpUtils.getBaseUrl() + "/user/reg",infoMap);
         });
     }
 }

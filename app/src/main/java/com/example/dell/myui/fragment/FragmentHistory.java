@@ -15,8 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
+import com.example.dell.myui.SQLite.MYDB;
+import com.example.dell.myui.SQLite.localDB;
 import com.example.dell.myui.entity.HistoryItemEntity;
 import com.example.dell.myui.adapter.HistroyAdapter;
+import com.example.dell.myui.entity.PictureEntity;
+import com.example.dell.myui.utils.FileUtils;
+import com.example.dell.myui.utils.GoToResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,7 @@ public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowIt
     private static boolean isShow; // 是否显示CheckBox标识
     private View view;
     private LinearLayout lay;
+    private localDB my_db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -43,7 +49,7 @@ public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowIt
         return view;
     }
     public void init()
-    {
+    {   my_db = ((MYDB)getActivity().getApplication()).getDB();
         listView = view.findViewById(R.id.history_listview);
         lay= view.findViewById(R.id.lay);
         setlist();
@@ -84,8 +90,14 @@ public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowIt
                 }
                 else
                 {
-                    //单击事件
-                    Toast.makeText(getActivity(), dataList.get(position).getDate(), Toast.LENGTH_SHORT).show();
+                    //单击事件,跳转到结果界面
+                    PictureEntity pictureEntity=my_db.queryData(dataList.get(position).getName());
+                    if(pictureEntity != null){
+                        GoToResult.goToResActivity(getContext(),pictureEntity.getPictureUrl(),pictureEntity.getPictureData());
+                    }else{
+                        Toast.makeText(getContext(),"不好意思，数据出错!",Toast.LENGTH_SHORT);
+                    }
+
                 }
             }
         });
@@ -186,7 +198,14 @@ public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowIt
                 if (selectList != null && selectList.size() > 0) {
                     dataList.removeAll(selectList);
                     hisAdapter.notifyDataSetChanged();
+                    for(int j = 0;j<selectList.size();j++){
+                        String pictureName = selectList.get(j).getName();
+                        PictureEntity picture = my_db.queryData(pictureName);
+                        FileUtils.delFileFromUrl(picture.getPictureUrl());//根据路径删除图片
+                        my_db.deleteData(pictureName);
+                    }
                     selectList.clear();
+
                 } else {
                     Toast.makeText(getActivity(), "请选择条目", Toast.LENGTH_SHORT).show();
                 }
@@ -226,9 +245,18 @@ public class FragmentHistory extends Fragment implements HistroyAdapter.OnShowIt
     {
         dataList=new ArrayList<HistoryItemEntity>();
         selectList=new ArrayList<HistoryItemEntity>();
-        for(int i=0;i<1;i++)
+        //获取所有本地记录
+        List<PictureEntity> pictureEntityList = my_db.queryData();
+        if(pictureEntityList == null)
         {
-            dataList.add(new HistoryItemEntity(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
+            return;
         }
+        for(int i=0;i<pictureEntityList.size();i++)
+        {
+            PictureEntity pictureEntity = pictureEntityList.get(i);
+            dataList.add(new HistoryItemEntity(FileUtils.getImageFromUrl(pictureEntity.getPictureUrl()),
+                    pictureEntity.getPictureName(),pictureEntity.getPictureData(),false, false));
+        }
+
     }
 }

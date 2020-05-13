@@ -1,6 +1,7 @@
 package com.example.dell.myui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
       btn_login.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+              String UserName = etUserName.getText().toString();
+              String Password = etPassword.getText().toString();
+
               Intent intent=new Intent(LoginActivity.this,MainActivity.class);
               startActivity(intent);
           }
@@ -45,5 +49,23 @@ public class LoginActivity extends AppCompatActivity {
               startActivity(intent);
           }
       });
+    }
+    public void saveUser(){
+        //保存用户名和密码
+        String userName = etUserName.getText().toString();
+        String passWord = etPassword.getText().toString();
+
+        //创建sharedPreference对象，info表示文件名，MODE_PRIVATE表示访问权限为私有的
+        SharedPreferences sp = getSharedPreferences("info", MODE_PRIVATE);
+
+        //获得sp的编辑器
+        SharedPreferences.Editor ed = sp.edit();
+
+        //以键值对的显示将用户名和密码保存到sp中
+        ed.putString("username", userName);
+        ed.putString("password", passWord);
+
+        //提交用户名和密码
+        ed.commit();
     }
 }

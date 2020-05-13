@@ -24,10 +24,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.dell.myui.R;
+import com.example.dell.myui.SQLite.MYDB;
 import com.example.dell.myui.adapter.RollViewAdapter;
 import com.example.dell.myui.entity.HistoryItemEntity;
 import com.example.dell.myui.adapter.HistroyAdapter;
 import com.example.dell.myui.activity.ResultActivity;
+import com.example.dell.myui.entity.PictureEntity;
+import com.example.dell.myui.utils.FileUtils;
+import com.example.dell.myui.utils.GoToResult;
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.IconHintView;
@@ -66,7 +70,9 @@ public class FragmentMain extends Fragment {
         lv_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "点击了:第"+(position+1)+"条记录", Toast.LENGTH_SHORT).show();
+                String name = historyList.get(position).getName();
+                PictureEntity pictureEntity = ((MYDB)getActivity().getApplication()).getDB().queryData(name);
+                GoToResult.goToResActivity(getContext(),pictureEntity.getPictureUrl(),pictureEntity.getPictureData());
             }
         });
         return view;
@@ -242,10 +248,18 @@ public class FragmentMain extends Fragment {
     public void setHistoryList()
     {
         historyList=new ArrayList<HistoryItemEntity>();
-        for(int i=0;i<5;i++)
-        {
+        int length = 0;
+        List<PictureEntity> pictureEntityList = ((MYDB)getActivity().getApplication()).getDB().queryData();
+        if(pictureEntityList == null)
+            return ;
+        length = pictureEntityList.size();
+        if(length>=5)
+            length=5;
+        for(int i=0;i<length;i++)
+        {   PictureEntity pictureEntity = pictureEntityList.get(i);
+            Bitmap bitmap = FileUtils.getImageFromUrl(pictureEntity.getPictureUrl());
 
-            historyList.add(new HistoryItemEntity(BitmapFactory.decodeResource(getResources(), R.drawable.picture_show),"2016-01-01","00:00:00", false, false));
+            historyList.add(new HistoryItemEntity(bitmap,pictureEntity.getPictureName(),pictureEntity.getPictureData(),false, false));
         }
         histroyAdapter=new HistroyAdapter(historyList,getActivity());
     }

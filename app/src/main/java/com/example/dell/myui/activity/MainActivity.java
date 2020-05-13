@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PICK_IMAGE = 3;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 6;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE2 = 7;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

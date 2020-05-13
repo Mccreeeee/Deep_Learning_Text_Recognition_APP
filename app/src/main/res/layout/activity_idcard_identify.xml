@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_idcard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.dell.myui.activity.IDCardIdentifyActivity">
+    <Button
+        android:text="相册选择 正面"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_gallery_front"
+        tools:ignore="HardcodedText"/>
+
+    <Button
+        android:text="相册选择 反面"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_gallery_back"
+        tools:ignore="HardcodedText"/>
+
+    <Button
+        android:id="@+id/btn_id_card_front"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="身份证正面"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_id_card_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="身份证反面"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="姓名"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="性别"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="民族"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_ethnic"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="生日"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_birthday"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="住址"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"
+            android:scrollbars="vertical"
+            android:singleLine="false"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="身份证号"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_idNumber"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="签发机关"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_issueAuthority"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="有效期限"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_validdate"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+</LinearLayout>

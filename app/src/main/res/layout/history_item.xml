@@ -28,6 +28,9 @@
         android:textSize="20sp" />
     <TextView
         android:id="@+id/history_time"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxEms="5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -36,7 +39,7 @@
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@id/history_pic"
         android:text="2019-01-01"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
     <CheckBox
         android:id="@+id/history_checkbox"
         android:layout_width="wrap_content"

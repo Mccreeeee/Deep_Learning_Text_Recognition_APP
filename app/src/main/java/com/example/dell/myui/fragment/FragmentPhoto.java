@@ -1,232 +1,279 @@
 package com.example.dell.myui.fragment;
 
-import android.Manifest;
-import android.app.Dialog;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
+import com.baidu.idl.util.FileUtil;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.example.dell.myui.R;
+import com.example.dell.myui.RecognizeType.RecognizeType;
+import com.example.dell.myui.SQLite.MYDB;
+import com.example.dell.myui.SQLite.localDB;
+import com.example.dell.myui.activity.IDCardIdentifyActivity;
 import com.example.dell.myui.activity.ResultActivity;
+import com.example.dell.myui.activity.SelfCameraActivity;
 
 import java.io.File;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.example.dell.myui.entity.PictureEntity;
+import com.example.dell.myui.utils.FileUtils;
+import com.example.dell.myui.utils.GoToResult;
+import com.example.dell.myui.utils.fastJsonUtils;
 
-import static android.app.Activity.RESULT_OK;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FragmentPhoto extends Fragment {
-    private RelativeLayout relativeLayout;
+    private RelativeLayout relativeLayout1;    //通用,type=0
+    private RelativeLayout relativeLayout2;    //银行卡,type=1
+    private RelativeLayout relativeLayout3;    //身份证 2
+    private RelativeLayout relativeLayout4;    //手写体 3
+    private RelativeLayout relativeLayout5;    //ocr文档 4
+    private RelativeLayout relativeLayout6;    //pdf文档 5
 
-    private static final int CROP_PHOTO = 2;
-    private static final int REQUEST_CODE_PICK_IMAGE=3;
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 6;
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE2 = 7;
-    private File output;
-    private Uri imageUri;
-    Bitmap bit;
+    private static final int REQUEST_CODE_BANKCARD = 111;   //银行卡
+    private static final int REQUEST_CODE_HANDWRITING = 129; //手写
+    private static final int REQUEST_CODE_GENERAL_WEBIMAGE= 110;//网络图片识别
 
+
+    private boolean hasGotToken = false;
+    private boolean isPDF = false;  //因为pdf和ocr文档共用百度同一个api，所以需要判断是否时pdf
+    private AlertDialog.Builder alertDialog;
+    private String filePath;  //图片路径
+    private localDB my_db; // 数据库
     public FragmentPhoto()
     {
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        my_db = ((MYDB)getActivity().getApplication()).getDB();
         View view=inflater.inflate(R.layout.fragment_photo, container, false);
-        relativeLayout=view.findViewById(R.id.relative_one);
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
+        initAccessToken();
+        alertDialog = new AlertDialog.Builder(getContext());
+        relativeLayout1=view.findViewById(R.id.relative_one);
+        relativeLayout2 = view.findViewById(R.id.relative_two);
+        relativeLayout3 = view.findViewById(R.id.relative_three);
+        relativeLayout4 = view.findViewById(R.id.relative_four);
+        relativeLayout5 = view.findViewById(R.id.relative_five );
+        relativeLayout6 = view.findViewById(R.id.relative_six);
+        relativeLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showButtonDialog();
+                //跳转到拍照界面
+                Intent intent =new Intent(getActivity(), SelfCameraActivity.class);
+                startActivity(intent);
+            }
+        });
+        relativeLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //银行卡识别
+                if(!hasGotToken){ return;}
+                filePath = FileUtils.getSaveFile(getContext()
+                        .getApplicationContext())
+                        .getAbsolutePath();
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        filePath);
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_BANK_CARD);
+                startActivityForResult(intent, REQUEST_CODE_BANKCARD);
+
+            }
+        });
+        relativeLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!hasGotToken){return;}
+                Intent intent = new Intent(getContext(), IDCardIdentifyActivity.class);
+                startActivity(intent);
+            }
+        });
+        relativeLayout4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(!hasGotToken){return;}
+                filePath = FileUtils.getSaveFile(getContext()
+                        .getApplicationContext())
+                        .getAbsolutePath();
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        filePath);
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent, REQUEST_CODE_HANDWRITING);
+            }
+        });
+        relativeLayout5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //传统ocr（调用百度ocr的网络图片识别）
+                if(!hasGotToken){return;}
+                filePath = FileUtils.getSaveFile(getContext()
+                        .getApplicationContext())
+                        .getAbsolutePath();
+                Intent intent = new Intent(getActivity(),CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        filePath);
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent,REQUEST_CODE_GENERAL_WEBIMAGE);
+            }
+        });
+        relativeLayout6.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //pdf（调用百度ocr的网络图片识别）
+                if(!hasGotToken){return;}
+                isPDF = true;
+                filePath = FileUtils.getSaveFile(getContext()
+                        .getApplicationContext())
+                        .getAbsolutePath();
+                Intent intent = new Intent(getActivity(),CameraActivity.class);
+                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                        filePath);
+                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                        CameraActivity.CONTENT_TYPE_GENERAL);
+                startActivityForResult(intent,REQUEST_CODE_GENERAL_WEBIMAGE);
             }
         });
         return view;
     }
-    //弹出框，选择拍照或者从相册获取
-    void showButtonDialog()
-    {
-        //1、使用Dialog、设置style
-        final Dialog dialog = new Dialog(getActivity(),R.style.DialogTheme);
-        //2、设置布局
-        View view=View.inflate(getContext(),R.layout.button_dialog_picture,null);
-        dialog.setContentView(view);
 
-        Window window=dialog.getWindow();
-        //设置弹出的位置
-        window.setGravity(Gravity.BOTTOM);
-        //设置动画
-        window.setWindowAnimations(R.style.dialog_animStyle);
-        //设置对话框大小
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-        //拍照获取
-        dialog.findViewById(R.id.tv_takephoto).setOnClickListener(new View.OnClickListener() {
+
+
+    /**
+     * 以license文件方式初始化
+     */
+    private void initAccessToken(){
+        OCR.getInstance(getContext()).initAccessToken(new OnResultListener<AccessToken>() {
             @Override
-            public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            MY_PERMISSIONS_REQUEST_CALL_PHONE2);
-                }
-                else {takephoto();dialog.dismiss();
-                }
+            public void onResult(AccessToken accessToken) {
+                String token = accessToken.getAccessToken();
+                hasGotToken = true;
             }
-        });
-        //相册获取
-        dialog.findViewById(R.id.tv_photograph).setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        !=PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            MY_PERMISSIONS_REQUEST_CALL_PHONE2);
-                }
-                else {photograph();dialog.dismiss();}
+            public void onError(OCRError ocrError) {
+                ocrError.printStackTrace();
             }
-        });
-        dialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        },"aip.license",getContext().getApplicationContext());
     }
-    public void takephoto()   //拍照
-    {
-        /**
-         * 最后一个参数是文件夹的名称，可以随便起
-         */
-        File file=new File(Environment.getExternalStorageDirectory(),"拍照");
-        if(!file.exists()){
-            file.mkdir();
-        }
-        /**
-         * 这里将时间作为不同照片的名称
-         */
-        output=new File(file,System.currentTimeMillis()+".jpg");
-        /**
-         * 如果该文件夹已经存在，则删除它，否则创建一个
-         */
-        try {
-            if (output.exists()) {
-                output.delete();
-            }
-            output.createNewFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        /**
-         * 隐式打开拍照的Activity，并且传入CROP_PHOTO常量作为拍照结束后回调的标志
-         */
-        imageUri = Uri.fromFile(output);
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, CROP_PHOTO);
+
+    private void alertText(final String title,final String message){
+         alertDialog.setTitle(title)
+                 .setMessage(message)
+                 .setPositiveButton("确定",null)
+                 .show();
     }
-    public void photograph()  //相册
-    {
-        /**
-         * 打开选择图片的界面
-         */
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");//相片类型
-        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
+    private void infoPopText(final String result){
+        alertText("",result);
     }
 
     @Override
-    public void onActivityResult(int req,int res,Intent data)
-    {
-        super.onActivityResult(req, res, data);
-        switch (req)
-        {
-            case CROP_PHOTO:
-                if(res==RESULT_OK)
-                {
-                    try {
-                        Toast.makeText(getActivity(),"跳转",Toast.LENGTH_SHORT).show();
-                        bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(imageUri));
-                        Intent intent=new Intent(getActivity(), ResultActivity.class);
-                        intent.setData(imageUri);
-                        startActivity(intent);
-                    }catch(Exception e){
-                        Toast.makeText(getActivity(),"程序崩溃",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {  Log.i("tag", "失败");}
-                break;
-            case REQUEST_CODE_PICK_IMAGE:
-                if(res==RESULT_OK)
-                {  try{
-                    Toast.makeText(getActivity(),"跳转",Toast.LENGTH_SHORT).show();
-                    Uri uri = data.getData();
-                    bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
-                    Intent intent=new Intent(getActivity(), ResultActivity.class);
-                    intent.setData(uri);
-                    startActivity(intent);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    Log.d("tag",e.getMessage());
-                    Toast.makeText(getContext(),"程序崩溃",Toast.LENGTH_SHORT).show();
-                }}
-                else{
-                    Log.i("liang", "失败");
-                }
-
-                break;
-
-            default:
-                break;
-        }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
-    {
-
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                takephoto();
-            } else
-            {
-                // Permission Denied
-                Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE2)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                photograph();
-            } else
-            {
-                // Permission Denied
-                Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
-            }
-        }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            initAccessToken();
+        } else {
+            Toast.makeText(getContext().getApplicationContext(), "需要android.permission.READ_PHONE_STATE", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        super.onActivityResult(requestCode,resultCode,data);
+
+        //银行卡识别
+        if(requestCode == REQUEST_CODE_BANKCARD && resultCode==Activity.RESULT_OK){
+
+            RecognizeType.recBankCard(getContext()
+                    , filePath
+                    , new RecognizeType.TypeListener() {
+                        @Override
+                        public void onResult(String result) {
+                            //识别的结果
+                            infoPopText(result);
+                            insert(1,result);  //存入数据库
+                        GoToResult.goToResActivity(getContext(),filePath, result);
+                        }
+                    });
+        }
+        //手写体识别
+        if(requestCode == REQUEST_CODE_HANDWRITING && resultCode == Activity.RESULT_OK){
+
+            RecognizeType.recHandWriting(getContext()
+                    ,filePath
+                    ,new RecognizeType.TypeListener(){
+                        @Override
+                        public void onResult(String result) {
+                            //识别的结果
+                            infoPopText(result);
+                            insert(3,fastJsonUtils.decodeJson(result));
+                            GoToResult.goToResActivity(getContext(),filePath, fastJsonUtils.decodeJson(result));
+                        }
+                    });
+        }
+        //网络图片识别
+        if(requestCode == REQUEST_CODE_GENERAL_WEBIMAGE && resultCode==Activity.RESULT_OK){
+
+            RecognizeType.recWebimage(getContext()
+                    , filePath
+                    , new RecognizeType.TypeListener() {
+                        @Override
+                        public void onResult(String result) {
+                            infoPopText(result);
+                            if(isPDF){
+                                insert(5,fastJsonUtils.decodeJson(result));
+                            }
+                            else{insert(4,fastJsonUtils.decodeJson(result));}
+                            GoToResult.goToResActivity(getContext(),filePath,fastJsonUtils.decodeJson(result));
+                        }
+                    }
+            );
+        }
+
+    }
+
+    public void insert(int type,String result){
+        PictureEntity picture = new PictureEntity();
+        picture.setPictureType(type);
+        picture.setPictureName(FileUtils.getFileName(filePath));
+        picture.setPictureUrl(filePath);
+        picture.setPictureData(result);
+        my_db.insertData(picture);
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 释放内存资源
+        OCR.getInstance(getContext()).release();
+
     }
 
 }

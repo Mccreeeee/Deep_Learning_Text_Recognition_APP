@@ -36,7 +36,7 @@
                 <!-- android:ems="10"表示EditText内最多只显示10个字符，超出不显示 -->
                 <!-- android:singleLine="true"表示不能全部显示时，后面用“…”来表示 -->
                 <EditText
-                    android:id="@+id/login_edtId"
+                    android:id="@+id/login_edtUserName"
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
@@ -60,6 +60,21 @@
                     android:src="@drawable/login_more_up" />
             </LinearLayout>
             <!-- 横线  -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#CACDD1" />
+            <EditText
+                android:id="@+id/login_edtLoginName"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@null"
+                android:hint="请输入邮箱"
+                android:paddingLeft="15dp"
+                android:paddingRight="0dp"
+                android:singleLine="true"
+                android:textColorHint="#999999"
+                android:textSize="18sp" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

@@ -48,9 +48,9 @@ if(convertView==null)
     holder=new ViewHolder();
     convertView=inflater.inflate(R.layout.history_item,null);
     holder.picture=(ImageView) convertView.findViewById(R.id.history_pic);
-    holder.date=(TextView)convertView.findViewById(R.id.history_date);
+    holder.name=(TextView)convertView.findViewById(R.id.history_date);
     holder.cb=(CheckBox)convertView.findViewById(R.id.history_checkbox);
-    holder.time=(TextView)convertView.findViewById(R.id.history_time) ;
+    holder.data=(TextView)convertView.findViewById(R.id.history_time) ;
 convertView.setTag(holder);
 }
 else
@@ -68,8 +68,8 @@ final HistoryItemEntity item=list.get(position);
         holder.cb.setVisibility(View.GONE);
     }
     holder.picture.setImageBitmap(item.getPicture());
-    holder.date.setText(item.getDate());
-    holder.time.setText(item.getTime());
+    holder.name.setText(item.getName());
+    holder.data.setText(item.getData());
     holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -92,8 +92,8 @@ final HistoryItemEntity item=list.get(position);
 static class ViewHolder
     {
        ImageView picture;
-       TextView date;
-       TextView time;
+       TextView name;
+       TextView data;
        CheckBox cb;
     }
     public interface OnShowItemClickListener

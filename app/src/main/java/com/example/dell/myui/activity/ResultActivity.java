@@ -25,7 +25,8 @@ private TextView title,item_text,item_picture;
     private FragmentPicture fragmentPicture;
     String[]titles=new String[]{"图片","文字"};
 
-    Uri imageuri;
+    String filePath="";
+    String res="";  //识别结果
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,9 @@ private TextView title,item_text,item_picture;
         setContentView(R.layout.activity_result);
 
        Intent intent=getIntent();
-      imageuri=intent.getData();
+       Bundle bundle2 = intent.getExtras();
+       filePath = bundle2.getString("pictureUrl");
+       res = bundle2.getString("result");
         //ImageView imageView=(ImageView)findViewById(R.id.back);
        initview();
         vp.setOffscreenPageLimit(2);
@@ -98,8 +101,11 @@ private TextView title,item_text,item_picture;
         vp=(ViewPager)findViewById(R.id.mainViewPager);
 
         fragmentText=new FragmentText();
+        fragmentText.setText_result(res);
+        fragmentText.setPicturePath(filePath);
+
         fragmentPicture=new FragmentPicture();
-        fragmentPicture.getUri(imageuri);
+        fragmentPicture.getUri(filePath);
 
         fragment_list=new ArrayList<>();
         fragment_list.add(fragmentPicture);

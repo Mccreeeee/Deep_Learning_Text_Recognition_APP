@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    >
+    <ImageView
+        android:id="@+id/img_translate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sacn_line"></ImageView>
+    <com.example.dell.myui.camera.CropImageView.ClipImageView
+        android:id="@+id/crop_image"
+        android:rotation="90"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
+    <Button
+        android:id="@+id/btn_crop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:text="确定剪裁"
+        android:textSize="30dp"/>
+</LinearLayout>
